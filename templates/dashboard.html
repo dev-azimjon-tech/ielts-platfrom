@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<section class="dashboard-header card">
+  <h1>Welcome, {{ user.email }}</h1>
+  <p>AI writing feedback: {{ daily_feedback_used }}/3 used today</p>
+  <p>Remaining: {{ remaining_quota }} free checks</p>
+</section>
+
+<section class="feature-grid">
+  <article class="card feature">
+    <h3>Reading</h3>
+    <p>Practice passages and auto-marked questions.</p>
+    <a href="#" class="button secondary">Coming soon</a>
+  </article>
+  <article class="card feature">
+    <h3>Listening</h3>
+    <p>Audio activities and quick scoring checks.</p>
+    <a href="#" class="button secondary">Coming soon</a>
+  </article>
+  <article class="card feature">
+    <h3>Writing</h3>
+    <p>AI-based feedback with daily quota protection.</p>
+    <a href="#" class="button secondary">Coming soon</a>
+  </article>
+  <article class="card feature">
+    <h3>Speaking</h3>
+    <p>Timed cue cards with voice recording and playback.</p>
+    <a href="#" class="button secondary">Coming soon</a>
+  </article>
+</section>
+{% endblock %}
