@@ -34,6 +34,14 @@ def create_app():
     def index():
         return render_template("index.html")
 
+    @app.route('/reading')
+    def reading():
+        return render_template('reading.html')
+
+    @app.route('/listening')
+    def listening():
+        return render_template('listening.html')
+
     return app
 
 
