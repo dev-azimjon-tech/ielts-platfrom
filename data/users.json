@@ -4,5 +4,25 @@
     "email": "sobirovazimjon02@gmail.com",
     "password_hash": "scrypt:32768:8:1$ULe7uVWPsoGFnPgv$ecaad424cf9ad70984429fd4a6969df66be93760a2752a89c288e887a6d149edb22c7cbc04b1436f097b3f52370ced1c581735fb1506b14e4006a347fdc2f2bf",
     "created_at": "2026-08-25T12:00:24.515631+00:00"
+  },
+  {
+    "id": 2,
+    "email": "demo@example.com",
+    "password_hash": "scrypt:32768:8:1$J5ENcyLhIXIjpe1H$508cd8ed6b1d8bd7a6382bbcb19c0cf685d46cf7b5eb2a1f5df48c7dccbb3e8d7b377ead554f7a4c49ca30490c3134b54a0c1f8997ac3d5a8f0080a568241b0c",
+    "created_at": "2026-08-29T13:02:10.466316+00:00"
+  },
+  {
+    "id": 3,
+    "email": "user2@example.com",
+    "username": "studyuser2",
+    "password_hash": "scrypt:32768:8:1$xuSJaYLg95vahtE5$3d8e8ae94acc927df2b487917de6833254f80942cacf9d4fade285d99e189f95d5f8628845cf58ce65b31d12eec376ca7d58aeafa9d64ca75bb2b468db657353",
+    "created_at": "2026-08-29T13:24:35.985935+00:00"
+  },
+  {
+    "id": 4,
+    "email": "sobirovazimjon11@gmail.com",
+    "username": "demoname",
+    "password_hash": "scrypt:32768:8:1$ACuUggqdYv7rkj2E$f21603b183551d53a2c054910285747da4eaef94e0217052a749f78bdb6095a5eceb93b2a6b7685ea7c807c726e61c89458e4482bddb8815cd93dc25c9561de4",
+    "created_at": "2026-08-29T13:26:18.071035+00:00"
   }
 ]

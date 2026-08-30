@@ -1,55 +1,27 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Listening — IELTS Practice{% endblock %}
+{% block title %}Listening{% endblock %}
 
 {% block content %}
-  <div class="hero">
-    <div class="eyebrow">Listening</div>
-    <h1>Listening Practice</h1>
-    <p class="muted">Choose a section and use the controls to play audio and answer questions. Skeleton layout only.</p>
-  </div>
+  <section class="hero">
+    <p class="eyebrow">Listening</p>
+    <h1>Listening practice</h1>
+    <p class="muted">Use this section to review listening tasks and audio-based exercises.</p>
+  </section>
 
-  <div class="card" style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
-    <aside style="width:300px; min-width:260px;">
-      <div class="card">
-        <h3>Sections</h3>
-        <div class="feature-grid">
-          <div class="feature"><button class="button secondary" style="width:100%">Section 1</button></div>
-          <div class="feature"><button class="button secondary" style="width:100%">Section 2</button></div>
-          <div class="feature"><button class="button secondary" style="width:100%">Section 3</button></div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:12px;">
-        <h4>Controls</h4>
-        <div class="cta-row">
-          <a class="button primary" href="#">Play</a>
-          <a class="button secondary" href="#">Pause</a>
-          <a class="button secondary" href="#">Replay</a>
-        </div>
-      </div>
-    </aside>
-
-    <section style="flex:1; min-width:300px;">
-      <div class="card">
-        <h2>Audio player</h2>
-        <p class="muted">Audio waveform or player UI will be placed here. For now this is a placeholder.</p>
-        <div style="margin-top:18px;">
-          <a class="button primary" href="#">Begin Listening</a>
-          <a class="button secondary" href="#">View Transcript</a>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:16px;">
-        <h3>Question area</h3>
-        <p class="muted">Question placeholders and answer inputs appear here while the audio plays.</p>
-        <div class="cta-row" style="margin-top:12px;">
-          <a class="button secondary" href="#">Previous</a>
-          <a class="button secondary" href="#">Next</a>
-          <a class="button secondary" href="#">Submit</a>
-        </div>
-      </div>
-    </section>
-  </div>
-
+  {% if tasks %}
+    <div class="task-list">
+      {% for task in tasks %}
+        <article class="card task-card">
+          <h3>{{ task.title or 'Listening task' }}</h3>
+          <p>{{ task.summary or task.text or 'No summary available yet.' }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="card empty-state">
+      <h3>No listening content yet</h3>
+      <p>Add tasks to <code>data/listening_content.json</code> to populate this page.</p>
+    </div>
+  {% endif %}
 {% endblock %}

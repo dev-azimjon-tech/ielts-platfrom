@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <section class="hero card">
+    <p class="eyebrow">IELTS study platform</p>
+    <h1>Practice reading and listening with confidence.</h1>
+    <p>
+      Build strong IELTS skills through focused practice sessions, quick review, and a clean study routine.
+    </p>
+    <div class="cta-row">
+      <a class="button primary" href="{{ url_for('auth.register') }}">Create account</a>
+      <a class="button secondary" href="{{ url_for('auth.login') }}">Login</a>
+    </div>
+  </section>
+
+  <section class="feature-grid">
+    <article class="card feature">
+      <h3>Reading Lab</h3>
+      <p>Practice passages, answer questions, and review your performance in one place.</p>
+    </article>
+    <article class="card feature">
+      <h3>Listening Lab</h3>
+      <p>Train with audio tasks and improve your speed, focus, and comprehension.</p>
+    </article>
+    <article class="card feature">
+      <h3>Dashboard</h3>
+      <p>Track your progress and continue from where you left off in your study plan.</p>
+    </article>
+  </section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <div class="auth-page">
+    <section class="card auth-illustration">
+      <span class="auth-badge">Welcome back</span>
+      <h1>Keep learning with confidence.</h1>
+      <p class="muted">Continue your IELTS journey with focused reading and listening practice.</p>
+      <ul class="auth-points">
+        <li>Track your progress</li>
+        <li>Practice with real IELTS tasks</li>
+        <li>Study with a clean and simple dashboard</li>
+      </ul>
+    </section>
+
+    <section class="card auth-box">
+      <h1>Login</h1>
+      <p class="muted">Access your account using email or username.</p>
+      <form method="post" action="{{ url_for('auth.login') }}">
+        <div class="input-group">
+          <label for="login_type">Login with</label>
+          <select id="login_type" name="login_type">
+            <option value="email">Email</option>
+            <option value="username">Username</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label for="login_value">Email or Username</label>
+          <input id="login_value" name="login_value" type="text" required>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" required>
+        </div>
+
+        <button class="button primary auth-submit" type="submit">Login</button>
+      </form>
+      <p class="auth-links">Need an account? <a href="{{ url_for('auth.register') }}">Create one</a></p>
+    </section>
+  </div>
+{% endblock %}

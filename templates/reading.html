@@ -1,54 +1,27 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}Reading — IELTS Practice{% endblock %}
+{% block title %}Reading{% endblock %}
 
 {% block content %}
-  <div class="hero">
-    <div class="eyebrow">Reading</div>
-    <h1>Reading Practice</h1>
-    <p class="muted">Select a passage and start a timed practice. This is a skeleton page — layout and controls only.</p>
-  </div>
+  <section class="hero">
+    <p class="eyebrow">Reading</p>
+    <h1>Reading practice</h1>
+    <p class="muted">Use this section to review passages and question sets from your data store.</p>
+  </section>
 
-  <div class="card" style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
-    <aside style="width:300px; min-width:260px;">
-      <div class="card">
-        <h3>Passages</h3>
-        <div class="feature-grid">
-          <div class="feature"><button class="button secondary" style="width:100%">Passage 1</button></div>
-          <div class="feature"><button class="button secondary" style="width:100%">Passage 2</button></div>
-          <div class="feature"><button class="button secondary" style="width:100%">Passage 3</button></div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:12px;">
-        <h4>Controls</h4>
-        <div class="cta-row">
-          <a class="button primary" href="#">Start Test</a>
-          <a class="button secondary" href="#">Timed Mode</a>
-        </div>
-      </div>
-    </aside>
-
-    <section style="flex:1; min-width:300px;">
-      <div class="card">
-        <h2>Passage preview</h2>
-        <p class="muted">Passage title or preview will appear here. Replace with actual content when adding tests.</p>
-        <div style="margin-top:18px;">
-          <a class="button primary" href="#">Begin</a>
-          <a class="button secondary" href="#">Review Questions</a>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:16px;">
-        <h3>Question area</h3>
-        <p class="muted">Question placeholders and navigation controls go here.</p>
-        <div class="cta-row" style="margin-top:12px;">
-          <a class="button secondary" href="#">Previous</a>
-          <a class="button secondary" href="#">Next</a>
-          <a class="button secondary" href="#">Submit</a>
-        </div>
-      </div>
-    </section>
-  </div>
-
+  {% if tasks %}
+    <div class="task-list">
+      {% for task in tasks %}
+        <article class="card task-card">
+          <h3>{{ task.title or 'Reading task' }}</h3>
+          <p>{{ task.summary or task.text or 'No summary available yet.' }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="card empty-state">
+      <h3>No reading content yet</h3>
+      <p>Add tasks to <code>data/reading_content.json</code> to populate this page.</p>
+    </div>
+  {% endif %}
 {% endblock %}

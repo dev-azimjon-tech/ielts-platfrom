@@ -1,13 +1,9 @@
 import json
-import os
-import tempfile
-from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
-import fcntl
-
 DATA_DIR = Path(__file__).resolve().parent / "data"
+
 FILE_DEFAULTS = {
     "users.json": [],
     "feedback_usage.json": {},
@@ -20,64 +16,31 @@ FILE_DEFAULTS = {
 }
 
 
-def _lock_path_for(file_path: Path) -> Path:
-    return file_path.parent / f".{file_path.name}.lock"
-
-
-@contextmanager
-def file_lock(file_path: Path):
-    lock_path = _lock_path_for(file_path)
-    lock_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(lock_path, "a+b") as lock_file:
-        fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
-        try:
-            yield
-        finally:
-            fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
-
-
-def atomic_write_json(file_path: Path, payload):
-    file_path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(
-        "w",
-        encoding="utf-8",
-        dir=str(file_path.parent),
-        prefix=f".{file_path.name}.",
-        suffix=".tmp",
-        delete=False,
-    ) as tmp_file:
-        json.dump(payload, tmp_file, ensure_ascii=False, indent=2)
-        tmp_file.write("\n")
-        tmp_file.flush()
-        os.fsync(tmp_file.fileno())
-        tmp_path = tmp_file.name
-    os.replace(tmp_path, file_path)
-
-
-def ensure_data_files() -> None:
+def ensure_data_files():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    for filename, default in FILE_DEFAULTS.items():
-        path = DATA_DIR / filename
-        if not path.exists():
-            atomic_write_json(path, default)
+    for file_name, default_value in FILE_DEFAULTS.items():
+        file_path = DATA_DIR / file_name
+        if not file_path.exists():
+            file_path.write_text(json.dumps(default_value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def read_json(file_name: str, default):
+def read_json(file_name, default):
     path = DATA_DIR / file_name
     if not path.exists():
-        atomic_write_json(path, default)
-    with file_lock(path):
-        try:
-            with open(path, "r", encoding="utf-8") as file_handle:
-                return json.load(file_handle)
-        except json.JSONDecodeError:
-            return default
+        ensure_data_files()
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            return json.load(handle)
+    except (json.JSONDecodeError, OSError):
+        return default
 
 
-def write_json(file_name: str, payload):
+def write_json(file_name, payload):
     path = DATA_DIR / file_name
-    with file_lock(path):
-        atomic_write_json(path, payload)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8") as handle:
+        json.dump(payload, handle, ensure_ascii=False, indent=2)
+        handle.write("\n")
 
 
 def get_all_users():
@@ -86,12 +49,12 @@ def get_all_users():
 
 def get_user_by_id(user_id):
     for user in get_all_users():
-        if str(user["id"]) == str(user_id):
+        if str(user.get("id")) == str(user_id):
             return user
     return None
 
 
-def get_user_by_email(email: str):
+def get_user_by_email(email):
     normalized_email = (email or "").strip().lower()
     for user in get_all_users():
         if str(user.get("email", "")).strip().lower() == normalized_email:
@@ -99,17 +62,45 @@ def get_user_by_email(email: str):
     return None
 
 
-def create_user(email: str, password_hash: str):
+def get_user_by_username(username):
+    normalized_username = (username or "").strip().lower()
+    for user in get_all_users():
+        if str(user.get("username", "")).strip().lower() == normalized_username:
+            return user
+    return None
+
+
+def get_user_by_login(identifier, login_type="email"):
+    value = (identifier or "").strip()
+    if not value:
+        return None
+
+    if login_type == "username":
+        return get_user_by_username(value)
+    return get_user_by_email(value)
+
+
+def create_user(email, username, password_hash):
     users = get_all_users()
     normalized_email = (email or "").strip().lower()
+    normalized_username = (username or "").strip()
+
+    if not normalized_username:
+        raise ValueError("Username is required.")
+
+    normalized_username = normalized_username.lower()
 
     if any(str(user.get("email", "")).strip().lower() == normalized_email for user in users):
         raise ValueError("An account with that email already exists.")
+
+    if any(str(user.get("username", "")).strip().lower() == normalized_username for user in users):
+        raise ValueError("That username is already taken.")
 
     user_id = max((user.get("id", 0) for user in users), default=0) + 1
     user = {
         "id": user_id,
         "email": normalized_email,
+        "username": normalized_username,
         "password_hash": password_hash,
         "created_at": datetime.now(timezone.utc).isoformat(),
     }

@@ -3,34 +3,5 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<section class="hero card">
-  <p class="eyebrow">Free IELTS prep for students</p>
-  <h1>Practice every skill, from reading to speaking.</h1>
-  <p>
-    Build confidence with practice tasks, bilingual guidance, and AI-powered writing feedback.
-  </p>
-  <div class="cta-row">
-    <a class="button primary" href="{{ url_for('auth.signup') }}">Create Free Account</a>
-    <a class="button secondary" href="{{ url_for('auth.login') }}">Login</a>
-  </div>
-</section>
-
-<section class="feature-grid">
-  <article class="card feature">
-    <h3>Reading</h3>
-    <p>Passages and auto-graded questions for IELTS reading practice.</p>
-  </article>
-  <article class="card feature">
-    <h3>Listening</h3>
-    <p>Short practice sets with instant scoring for common IELTS tasks.</p>
-  </article>
-  <article class="card feature">
-    <h3>Writing</h3>
-    <p>Prompt bank and AI feedback aligned with IELTS writing criteria.</p>
-  </article>
-  <article class="card feature">
-    <h3>Speaking</h3>
-    <p>Cue cards, timed prep, and built-in voice recording for practice.</p>
-  </article>
-</section>
+  {% include 'home.html' %}
 {% endblock %}

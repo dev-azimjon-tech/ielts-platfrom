@@ -3,24 +3,23 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}IELTS Practice Platform{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}IELTS Platform{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
     <header class="site-header">
       <div class="container nav">
-        <div class="brand">
-          <a href="{{ url_for('index') }}">IELTS Practice</a>
-        </div>
+        <a class="brand" href="{{ url_for('home') }}">IELTS Practice</a>
         <nav>
-          <a href="{{ url_for('reading') }}">Reading</a>
-          <a href="{{ url_for('listening') }}">Listening</a>
+          <a href="{{ url_for('home') }}">Home</a>
+          <a href="{{ url_for('reading.reading_page') }}">Reading</a>
+          <a href="{{ url_for('listening.listening_page') }}">Listening</a>
           {% if current_user.is_authenticated %}
-            <a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
             <a href="{{ url_for('auth.logout') }}">Logout</a>
           {% else %}
             <a href="{{ url_for('auth.login') }}">Login</a>
-            <a href="{{ url_for('auth.signup') }}">Sign Up</a>
+            <a href="{{ url_for('auth.register') }}">Register</a>
           {% endif %}
         </nav>
       </div>
