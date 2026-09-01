@@ -6,11 +6,11 @@ This module creates and runs the Flask application using the app package.
 import os
 from pathlib import Path
 
-from flask import Flask, render_template
+from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_login import LoginManager, current_user, login_required
 
 from auth import auth_bp
-from data_store import ensure_data_files, get_user_by_id
+from data_store import ensure_data_files, get_user_by_id, get_user_progress, update_user_username
 from listening import listening_bp
 from models import User
 from reading import reading_bp
@@ -54,6 +54,30 @@ def index():
 @login_required
 def dashboard():
     return render_template("dashboard.html", user=current_user)
+
+
+@app.route("/my-account", methods=["GET", "POST"])
+@app.route("/my_account", methods=["GET", "POST"])
+@login_required
+def my_account():
+    if request.method == "POST":
+        new_username = (request.form.get("username") or "").strip()
+        if not new_username:
+            flash("Username cannot be empty.", "error")
+        else:
+            try:
+                updated_user = update_user_username(current_user.id, new_username)
+                current_user.username = updated_user["username"]
+                flash("Your username was updated successfully.", "success")
+            except ValueError as exc:
+                flash(str(exc), "error")
+        return redirect(url_for("my_account"))
+
+    return render_template(
+        "my_account.html",
+        user=current_user,
+        progress=get_user_progress(current_user.id),
+    )
 
 
 app.register_blueprint(auth_bp)

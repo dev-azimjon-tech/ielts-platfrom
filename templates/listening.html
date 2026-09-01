@@ -3,25 +3,26 @@
 {% block title %}Listening{% endblock %}
 
 {% block content %}
-  <section class="hero">
-    <p class="eyebrow">Listening</p>
-    <h1>Listening practice</h1>
-    <p class="muted">Use this section to review listening tasks and audio-based exercises.</p>
+  <section class="hero card">
+    <p class="eyebrow">Listening Lab</p>
+    <h1>🎧 Listening Practice</h1>
+    <p>Train your ear with authentic IELTS audio tasks. Listen carefully, answer accurately, and build your comprehension skills under exam conditions.</p>
   </section>
 
   {% if tasks %}
     <div class="task-list">
       {% for task in tasks %}
         <article class="card task-card">
-          <h3>{{ task.title or 'Listening task' }}</h3>
+          <h3>{{ task.title or 'Listening Task' }}</h3>
           <p>{{ task.summary or task.text or 'No summary available yet.' }}</p>
+          <a class="button primary" href="#" style="margin-top: 16px;">Start Listening</a>
         </article>
       {% endfor %}
     </div>
   {% else %}
     <div class="card empty-state">
-      <h3>No listening content yet</h3>
-      <p>Add tasks to <code>data/listening_content.json</code> to populate this page.</p>
+      <h3>🎵 No listening content yet</h3>
+      <p>Listening materials will appear here soon. Add audio tasks to <code>data/listening_content.json</code> to get started.</p>
     </div>
   {% endif %}
 {% endblock %}

@@ -15,6 +15,7 @@
           <a href="{{ url_for('reading.reading_page') }}">Reading</a>
           <a href="{{ url_for('listening.listening_page') }}">Listening</a>
           {% if current_user.is_authenticated %}
+            <a href="{{ url_for('my_account') }}">My Account</a>
             <a href="{{ url_for('dashboard') }}">Dashboard</a>
             <a href="{{ url_for('auth.logout') }}">Logout</a>
           {% else %}

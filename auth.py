@@ -23,7 +23,7 @@ def login():
         if user_data and check_password_hash(user_data["password_hash"], password):
             login_user(User(user_data))
             flash("Welcome back!", "success")
-            return redirect(url_for("dashboard"))
+            return redirect(url_for("my_account"))
 
         flash("Invalid login details or password.", "error")
 
@@ -55,9 +55,10 @@ def register():
             return render_template("register.html", user=current_user)
 
         try:
-            create_user(email=email, username=username, password_hash=generate_password_hash(password))
-            flash("Your account was created successfully. Please log in.", "success")
-            return redirect(url_for("auth.login"))
+            user_data = create_user(email=email, username=username, password_hash=generate_password_hash(password))
+            login_user(User(user_data))
+            flash("Your account was created successfully.", "success")
+            return redirect(url_for("my_account"))
         except ValueError as exc:
             flash(str(exc), "error")
             return render_template("register.html", user=current_user)

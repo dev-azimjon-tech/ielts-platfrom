@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+  <section class="card account-header">
+    <p class="eyebrow">Profile</p>
+    <h1>My account</h1>
+    <p>Update your username and keep track of your IELTS progress.</p>
+  </section>
+
+  <div class="account-layout">
+    <section class="card account-card">
+      <h2>Profile details</h2>
+      <form method="post" action="{{ url_for('my_account') }}">
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" value="{{ user.username }}" required>
+        </div>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input type="text" value="{{ user.email }}" readonly>
+        </div>
+
+        <button class="button primary" type="submit">Save changes</button>
+      </form>
+    </section>
+
+    <section class="card account-card">
+      <h2>Progress overview</h2>
+      <div class="stats-grid">
+        <div class="stat-box">
+          <span>Reading</span>
+          <strong>{{ progress.reading }}</strong>
+        </div>
+        <div class="stat-box">
+          <span>Listening</span>
+          <strong>{{ progress.listening }}</strong>
+        </div>
+        <div class="stat-box">
+          <span>Total sessions</span>
+          <strong>{{ progress.total_sessions }}</strong>
+        </div>
+      </div>
+
+      <p class="muted account-note">Your learning progress is tracked in one place and will be available on the dashboard later too.</p>
+    </section>
+  </div>
+{% endblock %}

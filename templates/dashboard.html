@@ -4,25 +4,25 @@
 
 {% block content %}
   <section class="card dashboard-header">
-    <h1>Welcome, {{ user.username or user.email }}</h1>
-    <p>Your IELTS study dashboard is ready.</p>
+    <h1>Welcome, {{ user.username or user.email }} 👋</h1>
+    <p>Ready to continue your IELTS journey? Let's make today productive.</p>
   </section>
 
   <section class="feature-grid">
     <article class="card feature">
-      <h3>Reading</h3>
-      <p>Continue with your latest reading tasks.</p>
-      <a class="button secondary" href="{{ url_for('reading.reading_page') }}">Open</a>
+      <h3>📖 Reading</h3>
+      <p>Master reading comprehension with authentic IELTS passages. Time your answers and track improvement.</p>
+      <a class="button primary" href="{{ url_for('reading.reading_page') }}">Start Reading</a>
     </article>
     <article class="card feature">
-      <h3>Listening</h3>
-      <p>Review audio practice and improve accuracy.</p>
-      <a class="button secondary" href="{{ url_for('listening.listening_page') }}">Open</a>
+      <h3>🎧 Listening</h3>
+      <p>Train your ear with real audio tasks. Build focus and accuracy under exam conditions.</p>
+      <a class="button primary" href="{{ url_for('listening.listening_page') }}">Start Listening</a>
     </article>
     <article class="card feature">
-      <h3>Progress</h3>
-      <p>Track what you have completed and what you should study next.</p>
-      <a class="button secondary" href="#">Coming soon</a>
+      <h3>📊 Progress</h3>
+      <p>Track your journey, see improvements, and identify areas to focus on next.</p>
+      <a class="button primary" href="#" style="opacity: 0.6; cursor: not-allowed;">Coming Soon</a>
     </article>
   </section>
 {% endblock %}

@@ -5,19 +5,19 @@
 {% block content %}
   <div class="auth-page">
     <section class="card auth-illustration">
-      <span class="auth-badge">Welcome back</span>
-      <h1>Keep learning with confidence.</h1>
-      <p class="muted">Continue your IELTS journey with focused reading and listening practice.</p>
+      <span class="auth-badge">Welcome Back</span>
+      <h1>Continue your progress today.</h1>
+      <p class="muted">Log back in to your account and pick up where you left off. Every practice session gets you closer to your IELTS goal.</p>
       <ul class="auth-points">
-        <li>Track your progress</li>
-        <li>Practice with real IELTS tasks</li>
-        <li>Study with a clean and simple dashboard</li>
+        <li>Access your practice history</li>
+        <li>Resume from where you stopped</li>
+        <li>Track improvement over time</li>
       </ul>
     </section>
 
     <section class="card auth-box">
-      <h1>Login</h1>
-      <p class="muted">Access your account using email or username.</p>
+      <h1>Welcome Back</h1>
+      <p class="muted">Sign in to continue your IELTS training journey.</p>
       <form method="post" action="{{ url_for('auth.login') }}">
         <div class="input-group">
           <label for="login_type">Login with</label>
@@ -29,17 +29,17 @@
 
         <div class="input-group">
           <label for="login_value">Email or Username</label>
-          <input id="login_value" name="login_value" type="text" required>
+          <input id="login_value" name="login_value" type="text" placeholder="Enter your email or username" required>
         </div>
 
         <div class="input-group">
           <label for="password">Password</label>
-          <input id="password" name="password" type="password" required>
+          <input id="password" name="password" type="password" placeholder="Enter your password" required>
         </div>
 
-        <button class="button primary auth-submit" type="submit">Login</button>
+        <button class="button primary auth-submit" type="submit">Sign In</button>
       </form>
-      <p class="auth-links">Need an account? <a href="{{ url_for('auth.register') }}">Create one</a></p>
+      <p class="auth-links">Don't have an account? <a href="{{ url_for('auth.register') }}">Create one now</a></p>
     </section>
   </div>
 {% endblock %}

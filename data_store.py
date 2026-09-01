@@ -108,3 +108,36 @@ def create_user(email, username, password_hash):
     users.append(user)
     write_json("users.json", users)
     return user
+
+
+def update_user_username(user_id, new_username):
+    users = get_all_users()
+    normalized_username = (new_username or "").strip()
+    if not normalized_username:
+        raise ValueError("Username is required.")
+
+    normalized_username = normalized_username.lower()
+    for user in users:
+        if str(user.get("id")) == str(user_id):
+            continue
+        if str(user.get("username", "")).strip().lower() == normalized_username:
+            raise ValueError("That username is already taken.")
+
+    for user in users:
+        if str(user.get("id")) == str(user_id):
+            user["username"] = normalized_username
+            write_json("users.json", users)
+            return user
+
+    raise ValueError("User not found.")
+
+
+def get_user_progress(user_id):
+    sessions = read_json("sessions.json", {})
+    user_progress = sessions.get(str(user_id), {})
+    return {
+        "reading": int(user_progress.get("reading", 0)),
+        "listening": int(user_progress.get("listening", 0)),
+        "total_sessions": int(user_progress.get("total_sessions", 0)),
+        "last_activity": user_progress.get("last_activity"),
+    }

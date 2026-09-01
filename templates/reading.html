@@ -3,25 +3,26 @@
 {% block title %}Reading{% endblock %}
 
 {% block content %}
-  <section class="hero">
-    <p class="eyebrow">Reading</p>
-    <h1>Reading practice</h1>
-    <p class="muted">Use this section to review passages and question sets from your data store.</p>
+  <section class="hero card">
+    <p class="eyebrow">Reading Lab</p>
+    <h1>📖 Reading Practice</h1>
+    <p>Sharpen your reading comprehension with authentic IELTS passages. Read carefully, answer thoughtfully, and review to improve.</p>
   </section>
 
   {% if tasks %}
     <div class="task-list">
       {% for task in tasks %}
         <article class="card task-card">
-          <h3>{{ task.title or 'Reading task' }}</h3>
+          <h3>{{ task.title or 'Reading Passage' }}</h3>
           <p>{{ task.summary or task.text or 'No summary available yet.' }}</p>
+          <a class="button primary" href="#" style="margin-top: 16px;">Start Practice</a>
         </article>
       {% endfor %}
     </div>
   {% else %}
     <div class="card empty-state">
-      <h3>No reading content yet</h3>
-      <p>Add tasks to <code>data/reading_content.json</code> to populate this page.</p>
+      <h3>📚 No reading content yet</h3>
+      <p>Reading materials will appear here soon. Add passages to <code>data/reading_content.json</code> to get started.</p>
     </div>
   {% endif %}
 {% endblock %}
